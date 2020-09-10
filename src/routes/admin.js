@@ -28,7 +28,8 @@ router.post("/add", async (req, res) => {
       title: req.body.title,
       image: req.file.filename,
       content: req.body.content,
-      description: req.body.description
+      description: req.body.description,
+      image: image.push(req.file.filename),
     })
     return res.status(200).json({
       status: "success",
