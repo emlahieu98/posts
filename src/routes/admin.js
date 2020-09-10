@@ -26,7 +26,7 @@ router.post("/add", async (req, res) => {
     return res.render("index", { data });
     const post = await post.create({
       title: req.body.title,
-      image: req.file.filename,
+    //  image: req.file.filename,
       content: req.body.content,
       description: req.body.description,
       image: image.push(req.file.filename),

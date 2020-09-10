@@ -1871,7 +1871,6 @@ pre {
 .table-dark-info thead th,
 .table-dark-info tbody + tbody {
   border-color: #7bc4ef; }
-
 .table-hover .table-dark-info:hover {
   background-color: #b5def6; }
   .table-hover .table-dark-info:hover > td,
