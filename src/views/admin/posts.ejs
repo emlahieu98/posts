@@ -1,0 +1,240 @@
+<div class="card-body">
+  <h4 class="card-title">Post List</h4>
+  <div class="d-flex align-items-center justify-content-end">
+    <button type="button" class="btn btn-info btn-rounded m-t-10 mb-2 " data-toggle="modal"
+      data-target="#full-width-modal-new">Add New Post</button>
+  </div>
+  <!-- Add Contact Popup Model -->
+  <!--modal-dialog-new -->
+  <div id="full-width-modal-new" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+      <div class="modal-content">
+        <div class="modal-header d-flex align-items-center">
+          <h4 class="modal-title" id="fullWidthModalLabel">Add new post</h4>
+          <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="#form-add-post" class="form-horizontal striped-rows b-form" enctype="multipart/form-data">
+            <div class="card-body">
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Title</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" name="title"  class="form-control" id="title" placeholder="">
+                </div>
+              </div>
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Description</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <textarea type="text" name="description" class="form-control" id="description"
+                    placeholder="Description..."> </textarea>
+                </div>
+              </div>
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Image Title</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">...</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="file-new" name="file-new">
+                      <label class="custom-file-label for=" inputGroupFile01">Choose
+                        Image</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Content</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div class="summernote-new"></div>
+        
+                </div>
+              </div>
+          
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Image Others</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">...</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="inputGroupFile01" name="inputFile01">
+                      <label class="custom-file-label for=" inputGroupFile01">Choose image </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+          <button type="button" id="btn-add-post" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <!-- end modal-new -->
+  <!--modal edit -->
+  <div id="full-width-modal-edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+      <div class="modal-content">
+        <div class="modal-header d-flex align-items-center">
+          <h4 class="modal-title" id="fullWidthModalLabel">Edit new post</h4>
+          <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal striped-rows b-form" action="" method="get">
+            <div class="card-body">
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Title</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="inputEmail3" placeholder="Title...">
+                </div>
+              </div>
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Description</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <textarea type="text" class="form-control" id="inputEmail3" placeholder="Description..."> </textarea>
+                </div>
+              </div>
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Content</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+
+
+                  <div id="summernote-edit"></div>
+
+                </div>
+              </div>
+              <div class="form-group row border-bottom mb-0 py-3 bg-light">
+                <div class="col-sm-3">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <label for="inputEmail3" class="control-label col-form-label">Select File</label>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Image</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="inputGroupFile01">
+                      <label class="custom-file-label" onchange="readURL(this);" for="inputGroupFile01">Choose
+                        Image</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- end modal-edit  -->
+  <div class="table-responsive">
+    <table id="demo-foo-addrow"
+      class="table table-bordered m-t-30 table-hover contact-list no-wrap footable footable-5 footable-paging footable-paging-center breakpoint-lg"
+      data-paging="true" data-paging-size="7" style="">
+      <thead>
+        <tr class="footable-header">
+          <th class="footable-first-visible" style="display: table-cell;">No</th>
+          <th style="display: table-cell;">Title</th>
+          <th style="display: table-cell;">Description</th>
+          <th style="display: table-cell;">Image Title</th>
+          <th style="display: table-cell;">Content</th>
+          <th style="display: table-cell;">Image Others</th>
+          <th style="display: table-cell;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% posts.forEach( (post, index) => { %>
+        <tr>
+          <td class="footable-first-visible" style="display: table-cell;"><%=index+1%></td>
+          <td style="display: table-cell;"><span class="badge py-1 badge-success"></span> <%=post.title%> </td>
+          <td style="display: table-cell;">
+            <a href="javascript:void(0)"><span class="badge py-1 badge-light"></span><%=post.description%></a>
+          </td>
+          <td style="display: table-cell;"><img src="../uploads/<%=post.image[0]%>" alt="image" width="60"
+              class="rounded-circle"></td>
+          <td style="display: table-cell;"><%=post.content%></td>
+          <td style="display: table-cell;"><img src="../uploads/<%=post.image[0]%>" alt="image" width="60"
+              class="rounded-circle"></td>
+          <td style="display: table-cell;">
+            <div class="action-btn">
+              <a class="text-info edit" data-toggle="modal" data-target="#full-width-modal-edit"><i
+                  class="mdi mdi-account-edit font-24"></i></a>
+              <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-24"></i></a>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+      <tfoot>
+        <tr class="footable-paging">
+          <td colspan="8">
+            <div class="footable-pagination-wrapper">
+              <ul class="pagination justify-content-center">
+                <li class="footable-page-nav disabled" data-page="first"><a class="footable-page-link" href="#">«</a>
+                </li>
+                <li class="footable-page-nav disabled" data-page="prev"><a class="footable-page-link" href="#">‹</a>
+                </li>
+                <li class="footable-page visible active" data-page="1"><a class="footable-page-link" href="#">1</a></li>
+                <li class="footable-page visible" data-page="2"><a class="footable-page-link" href="#">2</a></li>
+                <li class="footable-page-nav" data-page="next"><a class="footable-page-link" href="#">›</a></li>
+                <li class="footable-page-nav" data-page="last"><a class="footable-page-link" href="#">»</a></li>
+              </ul>
+              <div class="divider"></div><span class="label label-primary">1 of 2</span>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
