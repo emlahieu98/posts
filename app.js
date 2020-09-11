@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -32,6 +32,19 @@ app.use('/admin/posts', adminRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+app.use(
+  logger("dev", {
+    skip: (req, res) => {
+      if (
+        req.path.startsWith("/assets") ||
+        req.path.startsWith("/dist") ||
+        req.path.startsWith("/script")
+      )
+        return true;
+      return false;
+    },
+  })
+);
 
 // error handler
 app.use(function(err, req, res, next) {

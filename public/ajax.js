@@ -28,15 +28,24 @@ $(document).ready(function () {
     ],
   });
   $("#btn-add-post").click(function () {
-    var title = $("#title").val();
-    var description = $("#description").val();
-    let content = $(".summernote-new").summernote("code");
+    let file = $("#file-new").val();
+    let title = $("#title").val();
+    let description = $("#description").val();
+    // let content = $(".summernote-new").summernote("code");
+    let content = $("#content1").val();
     $("#content").val(content);
-    if (title != '' && description != '' && content != '') {
+    if (title != "" && file != "" && description != "" && content.length > 0) {
       alert("Create new post success");
+    } else {
+      alert("Please field post ");
     }
   }
   );
+
+
+  
+});
+
 
   //   $("#btn-add-post").click(function () {
 
@@ -67,4 +76,3 @@ $(document).ready(function () {
   //           });
   //   //    }
   //     });
-});
