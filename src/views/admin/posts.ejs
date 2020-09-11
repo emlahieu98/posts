@@ -1,4 +1,11 @@
+
 <div class="card-body">
+  <!-- <div id="alert-noti" class="alert alert-success alert-dismissible bg-success text-white border-0 fade show  hidden" role="alert">
+    <button type="button" class="close ml-auto" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+    <strong>Success - </strong> A simple success alert—check it out!
+  </div> -->
   <h4 class="card-title">Post List</h4>
   <div class="d-flex align-items-center justify-content-end">
     <button type="button" class="btn btn-info btn-rounded m-t-10 mb-2 " data-toggle="modal"
@@ -15,7 +22,7 @@
           <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div class="modal-body">
-          <form id="form-add-post" class="form-horizontal striped-rows b-form" enctype="multipart/form-data">
+          <form id="form-add-post" class="form-horizontal striped-rows b-form" action="/admin/posts/add" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
                 <div class="col-sm-3">
@@ -24,7 +31,7 @@
                   </div>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" name="title"  class="form-control" id="title" placeholder="">
+                  <input type="text" name="title"  class="form-control" id="title" placeholder="" required>
                 </div>
               </div>
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
@@ -34,8 +41,7 @@
                   </div>
                 </div>
                 <div class="col-sm-9">
-                  <textarea type="text" name="description" class="form-control" id="description"
-                    placeholder="Description..."> </textarea>
+                  <input type="text" name="description" class="form-control" id="description" required> </input >
                 </div>
               </div>
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
@@ -50,8 +56,8 @@
                       <span class="input-group-text">...</span>
                     </div>
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="file-new" name="file-new">
-                      <label class="custom-file-label for=" inputGroupFile01">Choose
+                      <input type="file" class="custom-file-input" id="file-new" name="file-new" required>
+                      <label class="custom-file-label for="inputGroupFile01">Choose
                         Image</label>
                     </div>
                   </div>
@@ -64,9 +70,12 @@
                   </div>
                 </div>
                 <div class="col-sm-9">
-                  <div class="summernote-new"></div>
+                  <div id="summernote-new"  class="summernote-new"></div>
         
                 </div>
+                <input name="content" type="text" id="content" hidden required>
+                
+              </input>
               </div>
           
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
@@ -81,7 +90,7 @@
                       <span class="input-group-text">...</span>
                     </div>
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="file-new-2" name="file-new-2">
+                      <input type="file" class="custom-file-input" id="file-new" name="file-new" required>
                       <label class="custom-file-label for=" inputGroupFile01">Choose image </label>
                     </div>
                   </div>
@@ -91,7 +100,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-          <button type="button" id="btn-add-post" class="btn btn-primary">Save changes</button>
+          <button type="submit" id="btn-add-post" class="btn btn-primary">Save changes</button>
         </div>
       </div>
       </form>
@@ -108,7 +117,7 @@
           <button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal striped-rows b-form" action="" method="get">
+          <form class="form-horizontal striped-rows b-form" action="/admin/posts/edit/<%=posts._id%>" method="POST"enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
                 <div class="col-sm-3">
@@ -117,7 +126,7 @@
                   </div>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="inputEmail3" placeholder="Title...">
+                  <input type="text" class="form-control" id="inputEmail3" value="<%=posts.title%>">
                 </div>
               </div>
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
@@ -127,7 +136,7 @@
                   </div>
                 </div>
                 <div class="col-sm-9">
-                  <textarea type="text" class="form-control" id="inputEmail3" placeholder="Description..."> </textarea>
+                  <textarea type="text" class="form-control" id="inputEmail3" value="<%=posts.content%>"> </textarea>
                 </div>
               </div>
               <div class="form-group row border-bottom mb-0 py-3 bg-light">
@@ -203,12 +212,12 @@
           </td>
           <td style="display: table-cell;"><img src="../uploads/<%=post.image[0]%>" alt="image" width="60"
               class="rounded-circle"></td>
-          <td style="display: table-cell;"><%=post.content%></td>
-          <td style="display: table-cell;"><img src="../uploads/<%=post.image[0]%>" alt="image" width="60"
+          <td style="display: table-cell;"><%-post.content%></td>
+          <td style="display: table-cell;"><img src="../uploads/<%=post.image[1]%>" alt="image" width="60"
               class="rounded-circle"></td>
           <td style="display: table-cell;">
             <div class="action-btn">
-              <a class="text-info edit" data-toggle="modal" data-target="#full-width-modal-edit"><i
+              <a class="text-info edit" data-toggle="modal" data-target="#full-width-modal-edit" href="/admin/posts/edit/<%=posts._id%>"><i
                   class="mdi mdi-account-edit font-24"></i></a>
               <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-24"></i></a>
             </div>
