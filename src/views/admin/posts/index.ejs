@@ -407,7 +407,18 @@
   <div class="row">
 <div class="card-body">
   <h4 class="card-title">Post List</h4>
-  <a href="/admin/posts/add" > Add New Post</a>
+  <a id="add-new" href="/admin/posts/add" > Add New Post</a>
+  <style>
+    #add-new {
+      background:#009efb;
+      font-size: 17px;
+      padding: 6px 14px;
+      border-radius: 10px;
+      color: white;
+      line-height: 3;
+    }
+  </style>
+  
   <div class="table-responsive">
     <table id="demo-foo-addrow"
       class="table table-bordered m-t-30 table-hover contact-list no-wrap footable footable-5 footable-paging footable-paging-center breakpoint-lg"
@@ -427,13 +438,13 @@
         <% posts.forEach( (post, index) => { %>
         <tr>
           <td class="footable-first-visible" style="display: table-cell;"><%=index+1%></td>
-          <td style="display: table-cell;"><span class="badge py-1 badge-success"></span> <%=post.title%> </td>
+          <td style="display: table-cell;"><span class="badge py-1 badge-success"></span> <%=post.title.substring(0,20)  %> </td>
           <td style="display: table-cell;">
-            <a href="javascript:void(0)"><span class="badge py-1 badge-light"></span><%=post.description%></a>
+            <a href="javascript:void(0)"><span class="badge py-1 badge-light"></span><%=post.description.substring(0,50)%></a>
           </td>
           <td style="display: table-cell;"><img src="../uploads/<%=post.image[0]%>" alt="image" width="60"
               class="rounded-circle"></td>
-          <td style="display: table-cell;"><%-post.content%></td>
+          <td style="display: table-cell;"><%- post.content.substring(0,50) %></td>
           <td style="display: table-cell;"><img src="../uploads/<%=post.image[1]%>" alt="image" width="60"
               class="rounded-circle"></td>
           <td style="display: table-cell;">
@@ -476,16 +487,6 @@
               </ul>
 
 
-              <!-- <ul class="pagination justify-content-center">
-                <li class="footable-page-nav disabled" data-page="first"><a class="footable-page-link" href="#">«</a>
-                </li>
-                <li class="footable-page-nav disabled" data-page="prev"><a class="footable-page-link" href="#">‹</a>
-                </li>
-                <li class="footable-page visible active" data-page="1"><a class="footable-page-link" href="#">1</a></li>
-                <li class="footable-page visible" data-page="2"><a class="footable-page-link" href="#">2</a></li>
-                <li class="footable-page-nav" data-page="next"><a class="footable-page-link" href="#">›</a></li>
-                <li class="footable-page-nav" data-page="last"><a class="footable-page-link" href="#">»</a></li>
-              </ul> -->
               <div class="divider"></div><span class="label label-primary">1 of 2</span>
             </div>
           </td>
@@ -518,6 +519,12 @@
     </div>
   </div>
 </div> 
+
+<!-- <script>
+  var temparray = 'fasdfsadfsfsfsfsdf';
+  alert(temparray);
+  alert(temparray.slice(5))
+</script> -->
 
 <form name="delete-course-form" method="post"></form>
 <script >

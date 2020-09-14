@@ -1,106 +1,155 @@
 <%- include('../layouts/header')%>
 
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+
 <div class="modal-dialog modal-full-width">
   <div class="modal-content">
     <div class="modal-body">
       <% posts.forEach ((post,index) =>   {%>
-
-      <form id="form-edit-post" class="form-horizontal striped-rows b-form" action="/admin/posts/edit/<%= post._id%>" method="post"
+      <form id="form-add-post" class="form-horizontal striped-rows b-form" action="/admin/posts/edit/<%= post._id%>" method="post"
         enctype="multipart/form-data">
-        <div class="card-body">
-          <div class="form-group row border-bottom mb-0 py-3 bg-light">
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center justify-content-end">
-                <label for="inputEmail3" class="control-label col-form-label">Title</label>
-              </div>
-            </div>
-            <div class="col-sm-9">
-              <input type="text" name="title" class="form-control" id="title" placeholder="" value="<%=post.title %>" required>
-            </div>
-          </div>
-          <div class="form-group row border-bottom mb-0 py-3 bg-light">
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center justify-content-end">
-                <label for="inputEmail3" class="control-label col-form-label">Description</label>
-              </div>
-            </div>
-            <div class="col-sm-9">
-              <textarea name="description" class="form-control" id="description" required> <%=post.description %></textarea>
-            </div>
-          </div>
-          <div class="form-group row border-bottom mb-0 py-3 bg-light">
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center justify-content-end">
-                <label for="inputEmail3" class="control-label col-form-label" >Image Title</label>
-              </div>
-            </div>
-            <div class="col-sm-9">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">...</span>
-                </div>
-                <div class="custom-file">
-                  <input value="<%=post.image[0]%>" type="file" class="custom-file-input" id="file-new" name="file-new" required>
-                  <label class="custom-file-label for=" inputGroupFile01">Choose
-                    Image</label>
-                </div>
-                
-                <div class="col-sm-12 custom-pp1">
-                  <img src="../../../uploads/<%=post.image[0]%>" alt="image" width="80" class="rounded-circle">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row border-bottom mb-0 py-3 bg-light">
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center justify-content-end">
-                <label for="inputEmail3" class="control-label col-form-label">Content</label>
-              </div>
-            </div>
-            <div class="col-sm-9">
-              <textarea id="content1" name="content" class="summernote-new" required> <%=post.content %></textarea>
-
-            </div>
-          </div>
-
-          <div class="form-group row border-bottom mb-0 py-3 bg-light">
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center justify-content-end">
-                <label for="inputEmail3" class="control-label col-form-label">Image Others</label>
-              </div>
-            </div>
-            <div class="col-sm-9">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">...</span>
-                </div>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="file-new" name="file-new" value="<%=post.image[1]%>" required>
-                  <label class="custom-file-label for=" inputGroupFile01">Choose image </label>
-                </div>
-                <div class="col-sm-12 custom-pp1">
-                  <img src="../../../uploads/<%=post.image[1]%>" alt="image" width="80" class="rounded-circle">
-                </div>
-              </div>
-            </div>
-            <style>
-              .custom-pp1 {
-                display: flex;
-                width: 100%;
-                justify-content: center
-              }
-            </style>
-          </div>
+        <div class="hidden alert alert-danger alert-dismissible bg-danger text-white border-0 fade show box-error"
+          role="alert">
+          <button type="button" class="close ml-auto" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <strong id="error-message"></strong>
         </div>
-    </div>
-    <% }) %>
+          <div class="card-body">
+            <div class="form-group row border-bottom mb-0 py-3 bg-light">
+              <div class="col-sm-3">
+                <div class="d-flex align-items-center justify-content-end">
+                  <label for="inputEmail3" class="control-label col-form-label">Title</label>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" name="title" class="form-control" id="title" placeholder="" value="<%=post.title %>" required>
+              </div>
+            </div>
+            <div class="form-group row border-bottom mb-0 py-3 bg-light">
+              <div class="col-sm-3">
+                <div class="d-flex align-items-center justify-content-end">
+                  <label for="inputEmail3" class="control-label col-form-label">Description</label>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <textarea name="description" class="form-control" id="description" required> <%=post.description %></textarea>
+              </div>
+            </div>
+            <div class="form-group row border-bottom mb-0 py-3 bg-light">
+              <div class="col-sm-3">
+                <div class="d-flex align-items-center justify-content-end">
+                  <label for="inputEmail3" class="control-label col-form-label">Image Title</label>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">...</span>
+                  </div>
+                  <div class="custom-file">
+                    <input value="<%=post.image[0]%>" type="file" class="custom-file-input" id="file-new1" name="file-new"
+                      required>
+                    <label class="custom-file-label for=" inputGroupFile01">Choose
+                      Image</label>
+                  </div>
+          
+                  <div class="col-sm-12 custom-pp1">
+                    <img src="../../../uploads/<%=post.image[0]%>" alt="image" width="80" class="rounded-circle">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row border-bottom mb-0 py-3 bg-light">
+              <div class="col-sm-3">
+                <div class="d-flex align-items-center justify-content-end">
+                  <label for="inputEmail3" class="control-label col-form-label">Content</label>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <textarea id="content1" name="content" class="summernote-new" required> <%=post.content %></textarea>
+          
+              </div>
+            </div>
+          
+            <div class="form-group row border-bottom mb-0 py-3 bg-light">
+              <div class="col-sm-3">
+                <div class="d-flex align-items-center justify-content-end">
+                  <label for="inputEmail3" class="control-label col-form-label">Image Others</label>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">...</span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="file-new2" name="file-new" value="<%=post.image[1]%>"
+                      required>
+                    <label class="custom-file-label for=" inputGroupFile01">Choose image </label>
+                  </div>
+                  <div class="col-sm-12 custom-pp1">
+                    <img src="../../../uploads/<%=post.image[1]%>" alt="image" width="80" class="rounded-circle">
+                  </div>
+                </div>
+              </div>
+              <style>
+                .custom-pp1 {
+                  display: flex;
+                  width: 100%;
+                  justify-content: center
+                }
+              </style>
+            </div>
+          </div>
+          </div>
+          <% }) %>
     <div class="modal-footer">
-      <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+      <button type="button" onclick="window.location.href='/admin/posts'" class="btn btn-light" data-dismiss="modal">Close</button>
       <button type="submit" id="btn-edit-post" class="btn btn-primary">Save changes</button>
     </div>
   </div>
   </form>
 </div>
 </div>
+
 <!-- end modal-new -->
 <%- include('../layouts/footer')%>
+
+<script>
+
+  $("#form-edit-post").submit(function () {
+    let file = $("#file-new").val();
+    let title = $("#title").val();
+    let description = $("#description").val();
+    // let content = $(".summernote-new").summernote("code");
+    let content = $("#content1").val();
+    $("#content").val(content);
+    if (title != "" && file != "" && description != "" && content.length > 0) {
+      alert(check());
+    } else {
+      alert("Please field post ");
+    }
+  });
+
+  function check() {
+    var temp = $('#file-new1');
+    var f1 = temp.get(0).files[0];
+    var temp2 = $('#file-new2');
+    var f2 = temp2.get(0).files[0];
+    if (f1.size > 1|| f2.size > 1) {
+      $('#error-message').html('Error - File size is too large, please try again less than 5MB');
+      $('.box-error').removeClass('hidden');
+      setTimeout(function () { $('.box-error').addClass('hidden'); }, 3000);
+      event.preventDefault();
+      return 'Error , please check again';
+    }
+    return 'Update post success';
+  }
+
+
+</script>

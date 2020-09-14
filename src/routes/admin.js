@@ -3,16 +3,36 @@ const router = express.Router();
 const { post } = require("./../models/function");
 const postModel = require("./../models/postModel");
 const multer = require("multer");
-const upload = multer({
-  storage: multer.diskStorage({
+
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, "./public/uploads/");
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + "-" +file.originalname);
+      cb(null, Date.now() + "-" + file.originalname);
     },
-  }),
+  })
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpg" ||
+     file.mimetype === "image/png" ||
+     file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    return cb(new Error("Only image are allowed"));
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // limit file max 5MB
+  },
+  fileFilter: fileFilter,
 });
+
+
 //get all posts
 router.get("/", async (req, res) => {
     const page = parseInt(req.query.page || 1)
