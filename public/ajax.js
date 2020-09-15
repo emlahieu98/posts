@@ -29,33 +29,3 @@ $(document).ready(function () {
   });
   
 });
-
-//   $("#btn-add-post").click(function () {
-
-//       var title = $("#title").val();
-//       var description = $("#description").val();
-//     var content = $(".summernote-new").summernote("code");
-//     console.log(content);
-//  //   var fullName = $("#fullName").val();
-//    //   if ($("#form-add-post").valid()) {
-//         $.ajax({
-//           url: "/admin/posts/add",
-//           method: "POST",
-//           data: {
-//             title: title,
-//             description: description,
-//             content: content,
-
-//           },
-//         })
-//           .then(function (data) {
-//             alertify.success(data.message);
-//             window.timeout = setTimeout(function () {
-//               window.location.href = "/admin/posts";
-//             }, 2000);
-//           })
-//           .catch(function (err) {
-//             alertify.error(err.responseJSON.message);
-//           });
-//   //    }
-//     });

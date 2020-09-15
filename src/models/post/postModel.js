@@ -11,7 +11,7 @@ mongoose.connect(
     if (err) {
       console.log("Connect fail");
     } else {
-      console.log("Connect success");
+      console.log("Connect success with db.post");
     }
   }
 );

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { post } = require("./../models/function");
-const postModel = require("./../models/postModel");
+const { post } = require("../models/post/function");
+const postModel = require("../models/post/postModel");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -31,7 +31,6 @@ const upload = multer({
   },
   fileFilter: fileFilter,
 });
-
 
 //get all posts
 router.get("/", async (req, res) => {
@@ -124,8 +123,6 @@ router.post("/edit/:id", upload.array("file-new"), async (req, res) => {
     return res.render("admin/posts/index")
   }
 });
-
-
 //delete id post
 router.post("/delete/:id", async (req, res) => {
   const { id } = req.params;

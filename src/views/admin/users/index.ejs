@@ -1,4 +1,5 @@
 <%-include("../layouts/header")%>
+
 <body>
   <div class="preloader">
     <div class="lds-ripple">
@@ -250,7 +251,7 @@
                       <div class="form-group">
                         <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Message"></textarea>
                       </div>
-                      <button type="submit" class="btn btn-info">Submit</button>
+                      <button type="submitMess" class="btn btn-info">submitMess</button>
                     </form>
                   </div>
                   <div class="col-lg-3 col-xlg-4 mb-4">
@@ -363,13 +364,13 @@
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/posts"
                 aria-expanded="false"><i data-feather="message-circle" class="feather-icon"></i><span
                   class="hide-menu">Manager Post</span></a></li>
-                  <li class="sidebar-item selected"> <a class="sidebar-link waves-effect waves-dark sidebar-link active"
-                      href="/admin/kyc" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-check-circle feather-icon">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                      </svg><span class="hide-menu">Manager Kyc</span></a></li>
+            <li class="sidebar-item selected"> <a class="sidebar-link waves-effect waves-dark sidebar-link active"
+                href="/admin/kyc" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" class="feather feather-check-circle feather-icon">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg><span class="hide-menu">Manager Kyc</span></a></li>
         </nav>
 
       </div>
@@ -392,11 +393,13 @@
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Post</li>
+                  <li class="breadcrumb-item active" aria-current="page">Kyc</li>
                 </ol>
               </nav>
             </div>
+            <h4 class="card-title">List status: Pending </h4>
           </div>
+          
           <div class="col-md-7 d-flex justify-content-end align-self-center d-none d-md-flex">
             <div class="d-flex">
               <div class="dropdown mr-2 hidden-sm-down">
@@ -410,136 +413,117 @@
           </div>
         </div>
       </div>
-<div class="container-fluid">
-  <div class="row">
-<div class="card-body">
-  <h4 class="card-title">Post List</h4>
-  <a id="add-new" href="/admin/posts/add" > Add New Post</a>
-  <style>
-    #add-new {
-      background:#009efb;
-      font-size: 17px;
-      padding: 6px 14px;
-      border-radius: 10px;
-      color: white;
-      line-height: 3;
-    }
-  </style>
-  
-  <div class="table-responsive">
-    <table id="demo-foo-addrow"
-      class="table table-bordered m-t-30 table-hover contact-list no-wrap footable footable-5 footable-paging footable-paging-center breakpoint-lg"
-      data-paging="true" data-paging-size="7" style="">
-      <thead>
-        <tr class="footable-header">
-          <th class="footable-first-visible" style="display: table-cell;">No</th>
-          <th style="display: table-cell;">Title</th>
-          <th style="display: table-cell;">Description</th>
-          <th style="display: table-cell;">Image Title</th>
-          <th style="display: table-cell;">Content</th>
-          <th style="display: table-cell;">Image Others</th>
-          <th style="display: table-cell;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% posts.forEach( (post, index) => { %>
-        <tr>
-          <td class="footable-first-visible" style="display: table-cell;"><%=index+1%></td>
-          <td style="display: table-cell;"><span class="badge py-1 badge-success"></span> <%=post.title.substring(0,20)  %> </td>
-          <td style="display: table-cell;">
-            <a href="javascript:void(0)"><span class="badge py-1 badge-light"></span><%=post.description.substring(0,50)%></a>
-          </td>
-          <td style="display: table-cell;"><img src="../uploads/<%=post.image[0]%>" alt="image" width="60"
-              class="rounded-circle"></td>
-          <td style="display: table-cell;"><%- post.content.substring(0,50) %></td>
-          <td style="display: table-cell;"><img src="../uploads/<%=post.image[1]%>" alt="image" width="60"
-              class="rounded-circle"></td>
-          <td style="display: table-cell;">
-            <div class="action-btn">
-              <a href="/admin/posts/edit/<%=post._id%>" class="text-info edit" ><i
-                  class="mdi mdi-account-edit font-24"></i></a>
-              <a href="" data-toggle="modal" data-id="<%=post._id %>"  data-target="#delete-course-modal" class="text-dark delete ml-2"><i class="mdi mdi-delete font-24"></i></a>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="card card-body">
+            <div class="table-responsive">
+              <table class="table table-striped search-table v-middle">
+                <thead class="header-item">
+                  <tr>
+                    <th>
+                      <div class="n-chk align-self-center text-center">
+                        <div class="checkbox checkbox-info pb-4">
+                          <input type="checkbox" id="contact-check-all">
+                          <label for="contact-check-all"></label>
+                        </div>
+                      </div>
+                    </th>
+                    <th class="text-dark font-weight-bold">No</th>
+                    <th class="text-dark font-weight-bold">Name</th>
+                    <th class="text-dark font-weight-bold">Born</th>
+                    <th class="text-dark font-weight-bold">Image</th>
+                    <th class="text-dark font-weight-bold">Phone</th>
+                    <th class="text-center">
+                      <div class="action-btn">
+                        <a href="javascript:void(0)" class="submitMess-multiple text-success"><i
+                            class="mdi mdi-submitMess font-20 font-medium"></i> Action</a>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- row -->
+                  <% users.forEach((user, index) =>{ %>
+                  <tr class="search-items">
+                    <td>
+                      <div class="n-chk align-self-center text-center">
+                        <div class="checkbox checkbox-info pb-4">
+                          <input type="checkbox" class="material-inputs contact-chkbox" id="checkbox1">
+                          <label class="custom-control-label" for="checkbox1"></label>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="footable-first-visible" style="display: table-cell;"><%=index+1%></td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <!-- <img src="../assets/images/users/1.jpg" alt="avatar" class="rounded-circle" width="35"> -->
+                        <div class="ml-2">
+                          <div class="user-meta-info">
+                            <h5 class="user-name mb-0" data-name="Emma Adams"><%= user.identity.fName%><%= user.identity.lName%></h5>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="usr-email-addr" data-email="adams@mail.com"><%= user.identity.born%></span>
+                    </td>
+                    <td>
+                      <span class="usr-location" data-location="Boston, USA">
+                        <img src="../assets/images/users/4.jpg" alt="user" width="40" class="rounded-circle">
+                        <img src="../assets/images/users/4.jpg" alt="user" width="40" class="rounded-circle">
+                        <img src="../assets/images/users/4.jpg" alt="user" width="40" class="rounded-circle">
+
+                      </span>
+                    </td>
+                    <td>
+                      <span class="usr-ph-no" data-phone="+1 (070) 123-4567"><%= user.identity.phone%></span>
+                    </td>
+                    <td class="text-center">
+                      <div class="action-btn">
+                        <a href="/admin/kyc/resolve/<%= user.userId%>" class="text-info edit" style="position: relative;">
+                          <span id="resolve" class="hidden" style="position: absolute; top:-26px ; right: 1px;">Resolve</span>
+                          <i class="mdi mdi-account-edit font-20"></i>
+                        </a>
+                        <a href="/admin/kyc/refuse/<%= user.userId%>" class="text-info refuse" style="position: relative;">
+                          <span id="refuse" class="hidden" style="position: absolute; top:-26px ; left: 1px;">Refuse</span>
+                          <i class="mdi mdi-delete font-20"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <% })%>
+                </tbody>
+                <style>
+                  .text-info.edit:hover #resolve  {
+                      display: unset;
+                  }
+                  .text-info.refuse:hover #refuse {
+                      display: unset;
+                  }
+                  .hidden{display: none;}
+                </style>
+              </table>
             </div>
-          </td>
-        </tr>
-        <% }) %>
-      </tbody>
-      <foot>
-        <tr class="footable-paging">
-          <td colspan="8">
-            <div class="footable-pagination-wrapper">
-              <ul class="pagination justify-content-center">
-                <% if (page > 1) { %>
-                <li class="page-item">
-                  <a class="page-link" href="/admin/posts?page=<%=page-1 %>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <% } %>
-                <% range.map((i) => { %>
-                <li class="page-item <%= page === i ? "active" : "" %>"></li>
-                <% if (i === "...") { %>
-                <span> <%= i %> </span>
-                <% } else { %>
-                <a class="page-link" href="/admin/posts?page=<%= i %>"><%= i %></a>
-                <% } %>
-                </li>
-                <% }) %>
-                <% if (page < totalPages) { %>
-                <li class="page-item ">
-                  <a class="page-link" href="/admin/posts?page=<%= page + 1 %>"> Next </a>
-                </li>
-                <% } %>
-              </ul>
+          </div>
+          
+        </div>
+      </div>
 
 
-              <div class="divider"></div><span class="label label-primary">1 of 2</span>
-            </div>
-          </td>
-        </tr>
-      </foot>
-    </table>
-  </div>
-</div>
-</div>
-</div>
 
-<!-- Modal delete-->
- <div id="delete-course-modal" class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete post  </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        You want delete the post ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="btn-delete-course" type="button" class="btn btn-danger">Yes</button>
-      </div>
-    </div>
-  </div>
-</div> 
-<form name="delete-course-form" method="post"></form>
-<script >
-  document.addEventListener("DOMContentLoaded", function () {
-    var postId; 
-    var deleteForm = document.forms['delete-course-form'];
-    var btnDeleteCourse = document.getElementById("btn-delete-course")
-  $('#delete-course-modal').on('show.bs.modal', function (event){
-    var button = $(event.relatedTarget)
-      postId= button.data('id');
-  }) 
-  btnDeleteCourse.onclick = function(){
-   deleteForm.action = '/admin/posts/delete/'+ postId;
-   deleteForm.submit();
-  }
-})                                   
-</script>
-<%-include("../layouts/footer")%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <%-include("../layouts/footer")%>
