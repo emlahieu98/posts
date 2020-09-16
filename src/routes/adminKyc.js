@@ -4,7 +4,7 @@ const userModel = require("../models/user/userModel");
 const router = express.Router();
 router.get('/', async (req, res) => {
   const page = parseInt(req.query.page || 1);
-  const limit = 2;
+  const limit = 5;
   const skip = (page - 1) * limit;
   const totalDocuments = await userModel
     .find({ "identity.status": { $eq: "pending" } })
@@ -70,20 +70,30 @@ router.post("/refuse/:id", async (req, res) => {
   }
 });
 router.post("/handle-action", async (req, res) => {
-  console.log(req.body);
   switch (req.body.action) {
     case "resolve":
-      await user.set(
-        { userId: { $in: req.body.userIds } },
-      { $set: { "identity.status": "completed" } });
-   // return res.redirect("/admin/kyc");
+      await userModel.updateMany(
+        { userId: { $in: req.body["userIds[]"] } },
+        { $set: { "identity.status": "completed" } }
+      );
+      return res.redirect("/admin/kyc");
       break;
     case "refuse":
+      await userModel.updateMany(
+        { userId: { $in: req.body["userIds[]"] } },
+        {
+          $set: {
+            "identity.status": "not",
+            "identity.image": [],
+          },
+        }
+      );
+      return res.redirect("/admin/kyc");
+
       break;
     default:
-      res.redirect("/admin/kyc")
+      res.redirect("/admin/kyc");
   }
 })
-
 
 module.exports = router;
