@@ -241,19 +241,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-3  mb-4">
-                    <h4 class="mb-3">CONTACT US</h4>
-                    <form>
-                      <div class="form-group">
-                        <input type="text" class="form-control" id="exampleInputname1" placeholder="Enter Name"> </div>
-                      <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Enter email"> </div>
-                      <div class="form-group">
-                        <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Message"></textarea>
-                      </div>
-                      <button type="submitMess" class="btn btn-info">submitMess</button>
-                    </form>
-                  </div>
+                  
                   <div class="col-lg-3 col-xlg-4 mb-4">
                     <h4 class="mb-3">List style</h4>
                     <ul class="list-style-none">
@@ -413,21 +401,36 @@
           </div>
         </div>
       </div>
+
+
+
       <div class="container-fluid">
         <div class="row">
-          <div class="card card-body">
+          <div class="card card-body"> 
+            <form name="container-form" method="post" action="/admin/kyc/handle-action">
+            <div class="mt-4 d-flex align-items-center">        
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check-all">
+                <label class="form-check-label " for="check-all">Select All</label>
+              </div>           
+            <select class="form-control form-control-sm check-select " name="action" required>
+              <option value="">-- Action --</option>
+              <option value="resolve">Resolve</option>
+              <option value="refuse">Refuse</option>
+            </select>
+            <style>
+              .check-select{
+                width:130px;
+                margin : 0 16px;
+              }
+            </style>
+            <button class = "btn btn-primary btn-sm checkAllSubmit disabled"> Submit </button>
+          </div  >
             <div class="table-responsive">
               <table class="table table-striped search-table v-middle">
                 <thead class="header-item">
                   <tr>
-                    <th>
-                      <div class="n-chk align-self-center text-center">
-                        <div class="checkbox checkbox-info pb-4">
-                          <input type="checkbox" id="contact-check-all">
-                          <label for="contact-check-all"></label>
-                        </div>
-                      </div>
-                    </th>
+                    <th class="text-dark font-weight-bold">#</th>
                     <th class="text-dark font-weight-bold">No</th>
                     <th class="text-dark font-weight-bold">Name</th>
                     <th class="text-dark font-weight-bold">Born</th>
@@ -446,13 +449,10 @@
                   <% users.forEach((user, index) =>{ %>
                   <tr class="search-items">
                     <td>
-                      <div class="n-chk align-self-center text-center">
-                        <div class="checkbox checkbox-info pb-4">
-                          <input type="checkbox" class="material-inputs contact-chkbox" id="checkbox1">
-                          <label class="custom-control-label" for="checkbox1"></label>
-                        </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="userIds[]" value="<%=user.userId %>">
                       </div>
-                    </td>
+                    </td>                                       
                     <td class="footable-first-visible" style="display: table-cell;"><%=index+1%></td>
                     <td>
                       <div class="d-flex align-items-center">
@@ -540,10 +540,13 @@
                 </style>
               </table>
             </div>
+            </form>
           </div>  
         </div>
       </div>
 <!-- Modal resolve-->
+
+
 <div id="resolve-course-modal" class="modal fade" id="delete" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -569,6 +572,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     var userId;
     var resolveForm = document.forms['resolve-form'];
+
     var btnResolveCourse = document.getElementById("btn-resolve")
     $('#resolve-course-modal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
@@ -606,7 +610,13 @@
   document.addEventListener("DOMContentLoaded", function () {
     var userId;
     var resolveForm = document.forms['refuse-form'];
-    var btnResolveCourse = document.getElementById("btn-refuse")
+    var containerForm = document.forms['container-form'];
+    var btnResolveCourse = document.getElementById("btn-refuse");
+    var checkAll = $("#check-all");
+    var userItemCheckbox = $('input[name="userIds[]"]')
+    var checkAllSubmit = $('.checkAllSubmit'); 
+
+
     $('#refuse-course-modal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       userId = button.data('id');
@@ -615,24 +625,38 @@
       resolveForm.action = '/admin/kyc/refuse/' + userId;
       resolveForm.submit();
     }
-  })                                   
+    //checkbox all 
+    checkAll.change(function(){
+      let isCheckedAll = $(this).prop('checked');
+        userItemCheckbox.prop('checked', isCheckedAll);
+        renderCheckAll();
+        
+    })
+   // item checkbox 
+    userItemCheckbox.change(function () {
+       let isCheckedAll = userItemCheckbox.length === $('input[name="userIds[]"]:checked').length;      
+       checkAll.prop('checked', isCheckedAll);
+       renderCheckAll();
+    })
+    //check all submit
+    checkAllSubmit.on('submit', function (e) {
+      let isSubmitTable = !$(this).hasClass('disabled');
+      if (!isSubmitTable) {
+        e.preventDefault();
+        containerForm.submit()
+      }
+    })
+
+    //render check all submit
+    function renderCheckAll(){
+      var checkedCount = $('input[name="userIds[]"]:checked').length;
+      if(checkedCount > 0){
+        checkAllSubmit.removeClass('disabled')
+      }else{
+        checkAllSubmit.addClass('disabled')
+      } 
+    }
+  
+  })
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        <%-include("../layouts/footer")%>

@@ -69,7 +69,21 @@ router.post("/refuse/:id", async (req, res) => {
     return res.render("/admin/kyc");
   }
 });
-
+router.post("/handle-action", async (req, res) => {
+  console.log(req.body);
+  switch (req.body.action) {
+    case "resolve":
+      await user.set(
+        { userId: { $in: req.body.userIds } },
+      { $set: { "identity.status": "completed" } });
+   // return res.redirect("/admin/kyc");
+      break;
+    case "refuse":
+      break;
+    default:
+      res.redirect("/admin/kyc")
+  }
+})
 
 
 module.exports = router;
