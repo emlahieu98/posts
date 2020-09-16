@@ -64,7 +64,7 @@ router.get("/", async (req, res) => {
     const posts = await postModel.find()
         .limit(limit)
         .skip(skip);
-    res.render("admin/posts/index", {
+    return res.render("admin/posts/index", {
         posts,
         range: rangerForDot,
         page,

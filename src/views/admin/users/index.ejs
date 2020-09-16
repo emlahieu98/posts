@@ -480,11 +480,13 @@
                     </td>
                     <td class="text-center">
                       <div class="action-btn">
-                        <a href="/admin/kyc/resolve/<%= user.userId%>" class="text-info edit" style="position: relative;">
+                        <a href="" data-toggle="modal" data-id="<%=user.userId %>"  data-target="#resolve-course-modal"
+                          class="text-info edit" style="position: relative;">
                           <span id="resolve" class="hidden" style="position: absolute; top:-26px ; right: 1px;">Resolve</span>
                           <i class="mdi mdi-account-edit font-20"></i>
                         </a>
-                        <a href="/admin/kyc/refuse/<%= user.userId%>" class="text-info refuse" style="position: relative;">
+                        <a href="" data-toggle="modal" data-id="<%=user.userId %>"  data-target="#refuse-course-modal" 
+                         class="text-info refuse" style="position: relative;">
                           <span id="refuse" class="hidden" style="position: absolute; top:-26px ; left: 1px;">Refuse</span>
                           <i class="mdi mdi-delete font-20"></i></a>
                       </div>
@@ -492,6 +494,41 @@
                   </tr>
                   <% })%>
                 </tbody>
+                <foot>
+                  <tr class="footable-paging">
+                    <td colspan="8">
+                      <div class="footable-pagination-wrapper">
+                        <ul class="pagination justify-content-center">
+                          <% if (page > 1) { %>
+                          <li class="page-item">
+                            <a class="page-link" href="/admin/kyc?page=<%=page-1 %>" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <% } %>
+                          <% range.map((i) => { %>
+                          <li class="page-item <%= page === i ? "active" : "" %>"></li>
+                          <% if (i === "...") { %>
+                          <span> <%= i %> </span>
+                          <% } else { %>
+                          <a class="page-link" href="/admin/kyc?page=<%= i %>"><%= i %></a>
+                          <% } %>
+                          </li>
+                          <% }) %>
+                          <% if (page < totalPages) { %>
+                          <li class="page-item ">
+                            <a class="page-link" href="/admin/kyc?page=<%= page + 1 %>"> Next </a>
+                          </li>
+                          <% } %>
+                        </ul>
+                
+                
+                        <div class="divider"></div><span class="label label-primary"><%= page%> of <%= totalPages%></span>
+                      </div>
+                    </td>
+                  </tr>
+                </foot>
                 <style>
                   .text-info.edit:hover #resolve  {
                       display: unset;
@@ -503,11 +540,83 @@
                 </style>
               </table>
             </div>
-          </div>
-          
+          </div>  
         </div>
       </div>
-
+<!-- Modal resolve-->
+<div id="resolve-course-modal" class="modal fade" id="delete" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Resolve user </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You want resolve the user ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-resolve" type="button" class="btn btn-danger">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form name="resolve-form" method="post"></form>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var userId;
+    var resolveForm = document.forms['resolve-form'];
+    var btnResolveCourse = document.getElementById("btn-resolve")
+    $('#resolve-course-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      userId = button.data('id');
+    })
+    btnResolveCourse.onclick = function () {
+      resolveForm.action = '/admin/kyc/resolve/' + userId;
+      resolveForm.submit();
+    }
+  })                                   
+</script>
+<!-- Modal refuse-->
+<div id="refuse-course-modal" class="modal fade" id="delete" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Refuse user </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You want refuse the user ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-refuse" type="button" class="btn btn-danger">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form name="refuse-form" method="post"></form>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var userId;
+    var resolveForm = document.forms['refuse-form'];
+    var btnResolveCourse = document.getElementById("btn-refuse")
+    $('#refuse-course-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      userId = button.data('id');
+    })
+    btnResolveCourse.onclick = function () {
+      resolveForm.action = '/admin/kyc/refuse/' + userId;
+      resolveForm.submit();
+    }
+  })                                   
+</script>
 
 
 

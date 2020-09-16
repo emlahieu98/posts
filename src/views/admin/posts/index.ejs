@@ -458,7 +458,11 @@
             <div class="action-btn">
               <a href="/admin/posts/edit/<%=post._id%>" class="text-info edit" ><i
                   class="mdi mdi-account-edit font-24"></i></a>
-              <a href="" data-toggle="modal" data-id="<%=post._id %>"  data-target="#delete-course-modal" class="text-dark delete ml-2"><i class="mdi mdi-delete font-24"></i></a>
+
+
+              <a href="" data-toggle="modal" data-id="<%=post._id %>"  data-target="#delete-course-modal" class="text-dark delete ml-2">
+                
+                <i class="mdi mdi-delete font-24"></i></a>
             </div>
           </td>
         </tr>
@@ -494,7 +498,7 @@
               </ul>
 
 
-              <div class="divider"></div><span class="label label-primary">1 of 2</span>
+              <div class="divider"></div><span class="label label-primary"><%= page%> of <%= totalPages%></span>
             </div>
           </td>
         </tr>
